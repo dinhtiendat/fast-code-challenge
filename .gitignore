@@ -136,3 +136,4 @@ local.env
 prd.env
 app/logs/app_log.txt
 app/logs/access_log.txt
+app/uploads

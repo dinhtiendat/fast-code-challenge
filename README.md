@@ -21,10 +21,10 @@ sudo rm -f /opt/Python-3.12.10.tgz
 
 ### 1. Copy source code và cài đặt các gói python
 ```bash
-mkdir /home/laptop029/fast-code-challenge
+cd /home/laptop029
+git clone -b main https://github.com/dinhtiendat/fast-code-challenge.git
 cd /home/laptop029/fast-code-challenge
 mkdir logs
-** Copy source code vào /home/laptop029/fast-code-challenge
 virtualenv venv --python='/usr/local/bin/python3.12'
 source venv/bin/activate
 #pip install --upgrade pip

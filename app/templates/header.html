@@ -7,11 +7,19 @@
                 </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-item nav-link" href="{{ url_for('match.index') }}">Match</a>
+                <a class="nav-item nav-link" href="{{ url_for('file.upload') }}">Upload file</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-item nav-link" href="{{ url_for('history.index') }}">History</a>
+                <a class="nav-item nav-link" href="{{ url_for('file.list') }}">Danh sách file</a>
             </li>
         </ul>
+        <div class="ms-auto">
+          {% if request.state.current_user %}
+            <span class="me-2 text-white">Xin chào, <b>{{ request.state.current_user.email }}</b></span>
+            <a class="btn btn-outline-danger btn-sm" href="{{ url_for('auth.logout') }}">Đăng xuất</a>
+          {% else %}
+            <a class="btn btn-outline-primary btn-sm" href="{{ url_for('auth.login') }}">Đăng nhập</a>
+          {% endif %}
+        </div>
     </div>
 </nav>
