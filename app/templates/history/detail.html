@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %} History detail {% endblock %}
+
+{% block body %}
+{% include 'header.html' %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+                <div class="row">
+                    <div class="col">
+                        <h5>1. Asian Handicap Table</h5>
+                        <table class="table table-hover table-dark mt-4">
+                            <thead>
+                            <tr>
+                                <th>AH value</th>
+                                <th>Odds1</th>
+                                <th>Odds2</th>
+                                <th>Payout</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for ah in ah_data %}
+                                <tr>
+                                    <td>{{ ah.ah_value }}</td>
+                                    <td>{{ ah.odds1 }}</td>
+                                    <td>{{ ah.odds2 }}</td>
+                                    <td>{{ ah.payout }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col">
+                        <h5>2. Over/Under Table</h5>
+                        <table class="table table-hover table-dark mt-4">
+                            <thead>
+                                <tr>
+                                    <th>OU value</th>
+                                    <th>Odds1</th>
+                                    <th>Odds2</th>
+                                    <th>Payout</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ou in ou_data %}
+                                <tr>
+                                    <td>{{ ou.ou_value }}</td>
+                                    <td>{{ ou.odds1 }}</td>
+                                    <td>{{ ou.odds2 }}</td>
+                                    <td>{{ ou.payout }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <h4>Error list</h4>
+                    <h5>1. Error click cookies</h5>
+                    <p>{{ history.error_cookies }}</p>
+                    <h5>2. Error click decimal odds</h5>
+                    <p>{{ history.error_decimal_odds }}</p>
+                    <h5>3. Error get AH table</h5>
+                    <p>{{ history.error_ah }}</p>
+                    <h5>4. Error get OU table</h5>
+                    <p>{{ history.error_ou }}</p>
+                </div>
+                <div>
+                    <h4>Page source</h4>
+                    <h5>1. Page source - click cookies</h5>
+                    <p>{{ history.source_page_cookies | safe }}</p>
+                    <h5>2. Page source - click decimal odds</h5>
+                    <p>{{ history.source_page_decimal_odds | safe }}</p>
+                    <h5>3. Page source - get AH table</h5>
+                    <p>{{ history.source_page_ah | safe }}</p>
+                    <h5>4. Page source - get OU table</h5>
+                    <p>{{ history.source_page_ou | safe }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %} List of histories {% endblock %}
+
+{% block body %}
+{% include 'header.html' %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+                <h5>Success Rate: {{ n_success }}/{{ histories.total }}</h5>
+                <table class="table table-hover table-dark mt-4">
+                    <thead>
+                        <tr>
+                            <th>Match URL</th>
+                            <th>Start time</th>
+                            <th>End time</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for history in histories.items %}
+                        <tr>
+                            <td>{{ history.match.match_url }}</td>
+                            <td>{{ history.start_time | datetime_format }}</td>
+                            <td>{{ history.end_time | datetime_format }}</td>
+                            <td>{{ history.duration | int_format }}</td>
+                            <td>{{ history.status | mapper_status }}</td>
+                            <td><a href="{{ url_for('history.detail', history_id=history.id) }}">view</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- Pagination Links-->
+                <div class="text-right">
+                    <a href="{{ url_for('history.index').include_query_params(page=prev_num) }}"
+                       class="btn btn-outline-dark
+                       {% if histories.page == 1 %} disabled {% endif %}">
+                        &laquo;
+                    </a>
+                    <a href="{{ url_for('history.index').include_query_params(page=next_num) }}"
+                       class="btn btn-outline-dark
+                       {% if histories.page == n_pages %} disabled {% endif %}">
+                        &raquo;
+                    </a>
+                </div>
+
+                <p class="text-right mt-3">
+                   Current page: {{ histories.page }} / {{ n_pages }}
+                </p>
+                 <p class="text-right mt-3">
+                    Total items: {{ histories.total }}
+                </p>
+            </div>
+        </div>
+   </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

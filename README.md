@@ -27,7 +27,7 @@ mkdir logs
 ** Copy source code vào /home/laptop029/fast-code-challenge
 virtualenv venv --python='/usr/local/bin/python3.12'
 source venv/bin/activate
-pip install --upgrade pip
+#pip install --upgrade pip
 pip install -r requirements.txt
 deactivate
 ```
@@ -53,7 +53,7 @@ mkdir logs
 ** Copy source code vào /home/laptop029/fast-code-challenge
 virtualenv venv --python='/usr/local/bin/python3.12'
 source venv/bin/activate
-pip install --upgrade pip
+#pip install --upgrade pip
 pip install -r requirements.txt
 deactivate
 ```

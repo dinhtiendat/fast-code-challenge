@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %} List of matches {% endblock %}
+
+{% block body %}
+{% include 'header.html' %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+                <table class="table table-hover table-dark mt-4">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>URL</th>
+                            <th>Created at</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for match in matches.items %}
+                        <tr>
+                            <td>{{ match.id }}</td>
+                            <td>{{ match.match_url }}</td>
+                            <td>{{ match.created_at }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- Pagination Links-->
+                <div class="text-right">
+                    <a href="{{ url_for('match.index').include_query_params(page=prev_num) }}"
+                       class="btn btn-outline-dark
+                       {% if matches.page == 1 %} disabled {% endif %}">
+                        &laquo;
+                    </a>
+                    <a href="{{ url_for('match.index').include_query_params(page=next_num) }}"
+                       class="btn btn-outline-dark
+                       {% if matches.page == n_pages %} disabled {% endif %}">
+                        &raquo;
+                    </a>
+                </div>
+
+                <p class="text-right mt-3">
+                   Current page: {{ matches.page }} / {{ n_pages }}
+                </p>
+                 <p class="text-right mt-3">
+                    Total items: {{ matches.total }}
+                </p>
+            </div>
+        </div>
+   </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

@@ -1,0 +1,147 @@
+CREATE TABLE sejourney_analytics."match" (
+	id varchar(64) NOT NULL, -- id
+	match_url varchar(500) NOT NULL, -- match_url
+	created_at timestamp NOT NULL, -- created_at
+	CONSTRAINT match_pkey PRIMARY KEY (id)
+);
+CREATE INDEX ix_sejourney_analytics_match_match_url ON sejourney_analytics.match USING btree (match_url);
+COMMENT ON TABLE sejourney_analytics."match" IS 'match';
+
+-- Column comments
+
+COMMENT ON COLUMN sejourney_analytics."match".id IS 'id';
+COMMENT ON COLUMN sejourney_analytics."match".match_url IS 'match_url';
+COMMENT ON COLUMN sejourney_analytics."match".created_at IS 'created_at';
+
+-- Permissions
+
+ALTER TABLE sejourney_analytics."match" OWNER TO deploy;
+GRANT ALL ON TABLE sejourney_analytics."match" TO deploy;
+
+
+
+
+CREATE TABLE sejourney_analytics.history (
+	id varchar(64) NOT NULL, -- id
+	match_id varchar(64) NOT NULL, -- match_id
+	start_time timestamp NOT NULL, -- start_time
+	end_time timestamp NOT NULL, -- end_time
+	duration float8 NOT NULL, -- duration
+	status bool NOT NULL, -- status
+	error_cookies text NOT NULL, -- error_cookies
+	error_decimal_odds text NOT NULL, -- error_decimal_odds
+	error_ah text NOT NULL, -- error_ah
+	error_ou text NOT NULL, -- error_ou
+	source_page_cookies text NOT NULL, -- source_page_cookies
+	source_page_decimal_odds text NOT NULL, -- source_page_decimal_odds
+	source_page_ah text NOT NULL, -- source_page_ah
+	source_page_ou text NOT NULL, -- source_page_ou
+	created_at timestamp NOT NULL, -- created_at
+	CONSTRAINT history_pkey PRIMARY KEY (id)
+);
+CREATE INDEX ix_sejourney_analytics_history_match_id ON sejourney_analytics.history USING btree (match_id);
+COMMENT ON TABLE sejourney_analytics.history IS 'history';
+
+-- Column comments
+
+COMMENT ON COLUMN sejourney_analytics.history.id IS 'id';
+COMMENT ON COLUMN sejourney_analytics.history.match_id IS 'match_id';
+COMMENT ON COLUMN sejourney_analytics.history.start_time IS 'start_time';
+COMMENT ON COLUMN sejourney_analytics.history.end_time IS 'end_time';
+COMMENT ON COLUMN sejourney_analytics.history.duration IS 'duration';
+COMMENT ON COLUMN sejourney_analytics.history.status IS 'status';
+COMMENT ON COLUMN sejourney_analytics.history.error_cookies IS 'error_cookies';
+COMMENT ON COLUMN sejourney_analytics.history.error_decimal_odds IS 'error_decimal_odds';
+COMMENT ON COLUMN sejourney_analytics.history.error_ah IS 'error_ah';
+COMMENT ON COLUMN sejourney_analytics.history.error_ou IS 'error_ou';
+COMMENT ON COLUMN sejourney_analytics.history.source_page_cookies IS 'source_page_cookies';
+COMMENT ON COLUMN sejourney_analytics.history.source_page_decimal_odds IS 'source_page_decimal_odds';
+COMMENT ON COLUMN sejourney_analytics.history.source_page_ah IS 'source_page_ah';
+COMMENT ON COLUMN sejourney_analytics.history.source_page_ou IS 'source_page_ou';
+COMMENT ON COLUMN sejourney_analytics.history.created_at IS 'created_at';
+
+-- Permissions
+
+ALTER TABLE sejourney_analytics.history OWNER TO deploy;
+GRANT ALL ON TABLE sejourney_analytics.history TO deploy;
+
+
+-- sejourney_analytics.history foreign keys
+
+ALTER TABLE sejourney_analytics.history ADD CONSTRAINT history_match_id_fkey FOREIGN KEY (match_id) REFERENCES sejourney_analytics."match"(id);
+
+
+
+
+CREATE TABLE sejourney_analytics.ah_data (
+	id varchar(64) NOT NULL, -- id
+	history_id varchar(64) NOT NULL, -- history_id
+	"order" int4 NOT NULL, -- order
+	ah_value varchar(100) NOT NULL, -- ah_value
+	odds1 varchar(50) NOT NULL, -- odds1
+	odds2 varchar(50) NOT NULL, -- odds2
+	payout varchar(50) NOT NULL, -- payout
+	created_at timestamp NOT NULL, -- created_at
+	CONSTRAINT ah_data_pkey PRIMARY KEY (id)
+);
+CREATE INDEX ix_sejourney_analytics_ah_data_history_id ON sejourney_analytics.ah_data USING btree (history_id);
+COMMENT ON TABLE sejourney_analytics.ah_data IS 'ah_data';
+
+-- Column comments
+
+COMMENT ON COLUMN sejourney_analytics.ah_data.id IS 'id';
+COMMENT ON COLUMN sejourney_analytics.ah_data.history_id IS 'history_id';
+COMMENT ON COLUMN sejourney_analytics.ah_data."order" IS 'order';
+COMMENT ON COLUMN sejourney_analytics.ah_data.ah_value IS 'ah_value';
+COMMENT ON COLUMN sejourney_analytics.ah_data.odds1 IS 'odds1';
+COMMENT ON COLUMN sejourney_analytics.ah_data.odds2 IS 'odds2';
+COMMENT ON COLUMN sejourney_analytics.ah_data.payout IS 'payout';
+COMMENT ON COLUMN sejourney_analytics.ah_data.created_at IS 'created_at';
+
+-- Permissions
+
+ALTER TABLE sejourney_analytics.ah_data OWNER TO deploy;
+GRANT ALL ON TABLE sejourney_analytics.ah_data TO deploy;
+
+
+-- sejourney_analytics.ah_data foreign keys
+
+ALTER TABLE sejourney_analytics.ah_data ADD CONSTRAINT ah_data_history_id_fkey FOREIGN KEY (history_id) REFERENCES sejourney_analytics.history(id);
+
+
+
+
+CREATE TABLE sejourney_analytics.ou_data (
+	id varchar(64) NOT NULL, -- id
+	history_id varchar(64) NOT NULL, -- history_id
+	"order" int4 NOT NULL, -- order
+	ou_value varchar(100) NOT NULL, -- ou_value
+	odds1 varchar(50) NOT NULL, -- odds1
+	odds2 varchar(50) NOT NULL, -- odds2
+	payout varchar(50) NOT NULL, -- payout
+	created_at timestamp NOT NULL, -- created_at
+	CONSTRAINT ou_data_pkey PRIMARY KEY (id)
+);
+CREATE INDEX ix_sejourney_analytics_ou_data_history_id ON sejourney_analytics.ou_data USING btree (history_id);
+COMMENT ON TABLE sejourney_analytics.ou_data IS 'ou_data';
+
+-- Column comments
+
+COMMENT ON COLUMN sejourney_analytics.ou_data.id IS 'id';
+COMMENT ON COLUMN sejourney_analytics.ou_data.history_id IS 'history_id';
+COMMENT ON COLUMN sejourney_analytics.ou_data."order" IS 'order';
+COMMENT ON COLUMN sejourney_analytics.ou_data.ou_value IS 'ou_value';
+COMMENT ON COLUMN sejourney_analytics.ou_data.odds1 IS 'odds1';
+COMMENT ON COLUMN sejourney_analytics.ou_data.odds2 IS 'odds2';
+COMMENT ON COLUMN sejourney_analytics.ou_data.payout IS 'payout';
+COMMENT ON COLUMN sejourney_analytics.ou_data.created_at IS 'created_at';
+
+-- Permissions
+
+ALTER TABLE sejourney_analytics.ou_data OWNER TO deploy;
+GRANT ALL ON TABLE sejourney_analytics.ou_data TO deploy;
+
+
+-- sejourney_analytics.ou_data foreign keys
+
+ALTER TABLE sejourney_analytics.ou_data ADD CONSTRAINT ou_data_history_id_fkey FOREIGN KEY (history_id) REFERENCES sejourney_analytics.history(id);
